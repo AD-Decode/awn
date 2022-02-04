@@ -1,7 +1,9 @@
 # awn
-calculates absolute winding number to describe trajectory during spatial navigation 
-We calculate the absolute winding number to describe trajectory during spatial navigation
-Didong Li, Andrei Niculescu, Alex Badea 02/04/2022
+Calculates absolute winding number to describe trajectory during spatial navigation.
+
+We calculate the absolute winding number to describe trajectory during spatial navigation.
+
+Didong Li, Andrei Niculescu, Alex Badea 02/04/2022.
 
 Content:
 
