@@ -16,9 +16,21 @@ library(rstatix)
 library(lmerTest)
 library(effectsize)
 
-setwd('/Users/alex/AlexBadea_MyCodes/wind-main/')
+#setwd('/Users/alex/AlexBadea_MyCodes/wind-main/')
+maindir='/Users/alex/AlexBadea_MyCode/awn-main/'
+setwd(maindir)
+
 masterFile<-'APOE_MWM_Example.csv'
-outpath='./Figures/learning_example/'
+outpath='./learning_example2/'
+
+#check if outpath directory exists 
+if (file.exists(outpath)){
+  # do nothing
+} else {
+  
+  dir.create(file.path(maindir, outpath))
+  
+}
 
 info<-read.csv(masterFile, header=TRUE)
 df<-data.frame(info)
@@ -112,9 +124,14 @@ dfAveraged$Sex <- dfAveraged$Group.4
 dfAveraged$Stage <- dfAveraged$Group.5
 dfAveraged$Treatment <- dfAveraged$Group.6
 
+
+
 sink(paste(outpath, "LearningDist_Models.txt"))
 
 lm_Distance_trials <- lmer(Distance ~ APOE*Sex*Stage+(1|Animal), dfAveraged, REML = TRUE)
+
+#default options
+#options(contrasts = c("contr.treatment", "contr.poly"))
 
 anova(lm_Distance_trials)
 eta_squared(lm_Distance_trials, alternative='two.sided')
@@ -125,8 +142,8 @@ qqnorm(resid(lm_Distance_trials))
 emmeans(lm_Distance_trials , ~ APOE*Sex, contr="tukey")
 summary(glht(lm_Distance_trials, emm(pairwise ~ APOE)))
 summary(glht(lm_Distance_trials, emm(pairwise ~ APOE*Sex, adjust="sidak"))) #consider save to file
-summary(glht(lm_Distance_trials, emm(pairwise ~ APOE| Sex)))
-summary(glht(lm_Distance_trials, emm(pairwise ~ Sex | APOE)))
+summary(glht(lm_Distance_trials, emm(pairwise ~ APOE| Sex, adjust="sidak")))
+summary(glht(lm_Distance_trials, emm(pairwise ~ Sex | APOE, adjust="sidak")))
 sink()
 
 sink(paste(outpath, "LearningNormSWDist_Models.txt"))
@@ -141,8 +158,8 @@ qqnorm(resid(lm_NormSWDist_trials))
 
 summary(glht(lm_NormSWDist_trials, emm(pairwise ~ APOE)))
 summary(glht(lm_NormSWDist_trials, emm(pairwise ~ APOE*Sex, adjust="sidak"))) 
-summary(glht(lm_NormSWDist_trials, emm(pairwise ~ APOE| Sex)))
-summary(glht(lm_NormSWDist_trials, emm(pairwise ~ Sex | APOE)))
+summary(glht(lm_NormSWDist_trials, emm(pairwise ~ APOE| Sex, adjust="sidak")))
+summary(glht(lm_NormSWDist_trials, emm(pairwise ~ Sex | APOE, adjust="sidak")))
 sink()
 
 sink(paste(outpath, "Winding_LearningDay1Trial4_Models.txt"))
@@ -157,8 +174,8 @@ qqnorm(resid(lm_Day1Trial4_trials))
 
 summary(glht(lm_Day1Trial4_trials, emm(pairwise ~ APOE)))
 summary(glht(lm_Day1Trial4_trials, emm(pairwise ~ APOE*Sex, adjust="sidak"))) 
-summary(glht(lm_Day1Trial4_trials, emm(pairwise ~ APOE| Sex)))
-summary(glht(lm_Day1Trial4_trials, emm(pairwise ~ Sex | APOE)))
+summary(glht(lm_Day1Trial4_trials, emm(pairwise ~ APOE| Sex, adjust="sidak")))
+summary(glht(lm_Day1Trial4_trials, emm(pairwise ~ Sex | APOE, adjust="sidak")))
 sink()
 
 
