@@ -27,4 +27,6 @@ Calculating
 5) Change the pathways and file/folder names within the code and run the script.
 6) Now that you have a csv file with the winding numbers, add them into the concatenated MWM Data Sheet: APOE_MWM.xlsx''
 
+An example for using the AWN is provided for Morris Water Maze experimental data.
+
 Good luck!
